@@ -3,7 +3,7 @@
 clear all
 close all
 
-NumFluc=200;   %number of runs
+NumFluc=5;   %number of runs
 start_val = 22100000; % Default values for ERK/MEK molecules
 dosN=[10 10.25 10.5 10.75 10.875 11 11.125 11.25 11.375 11.5 11.625 11.75 12 12.25 12.5];
 %dosN=[11.125];
