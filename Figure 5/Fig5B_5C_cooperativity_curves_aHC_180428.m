@@ -24,7 +24,7 @@ for k=1:5
         errv=.4; %40% variation of pathway components
     end
     
-    for jj=1:50
+    for jj=1:100
         R =.5*2^((jj-1)*.1); %
         for j=1:1000
             e(1:10)=exp(randn(10,1)*errv); %Uncorrelated variation
@@ -54,29 +54,29 @@ xlabel('Log2(R)')
 ylabel('Percentage of cells that switch to active state at increasing input strength')
 axis([-.3 4.3 -0.05 1.05])
 
-for jj=1:50
+for jj=1:100
         RR(jj) =.5*2^((jj-1)*.1); %      
 end
 
 ft=fittype('x^n/(x^n+10^n)');
-for i=1:5
+for i=2:5
     cfit=fit(RR',squeeze(VV0(:,i)),ft);
     cfit
-    n0=cfit.n;
+    n0(i)=cfit.n;
     if i==2
-        hold on,plot(log2(RR),RR.^n0./(RR.^n0+10^n0),'r')
+        hold on,plot(log2(RR),RR.^n0(i)./(RR.^n0(i)+10^n0(i)),'r')
     elseif i==3
-        hold on,plot(log2(RR),RR.^n0./(RR.^n0+10^n0),'b')
+        hold on,plot(log2(RR),RR.^n0(i)./(RR.^n0(i)+10^n0(i)),'b')
     elseif i==4
-        hold on,plot(log2(RR),RR.^n0./(RR.^n0+10^n0),'g')
+        hold on,plot(log2(RR),RR.^n0(i)./(RR.^n0(i)+10^n0(i)),'g')
     elseif i==5
-        hold on,plot(log2(RR),RR.^n0./(RR.^n0+10^n0),'m') 
+        hold on,plot(log2(RR),RR.^n0(i)./(RR.^n0(i)+10^n0(i)),'m') 
     end
 end
     %
     %%
-
-
+    figure; bar(n0(2:5))  %barplot of apparent Hill coefficients
+    %% 
 function dydt = vd(t,y,R,e)
 dydt = zeros(5,1);    % a column vector
 dydt(1)=R*e(1)-e(2)*y(1);
